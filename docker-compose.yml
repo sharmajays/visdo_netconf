@@ -1,0 +1,11 @@
+version: "3"
+services:
+
+  netconf_app:
+    build: .
+    restart: unless-stopped
+    container_name: netconf_app
+    ports:
+    - 5200:5200
+    environment:
+      PORT: 5200
