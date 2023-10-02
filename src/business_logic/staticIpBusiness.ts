@@ -7,21 +7,10 @@ const setStaticIpBusiness = async(payload: staticIp) => {
         const command = prepareCommandForSetStaticIp(payload, 'end0')
         const setIp = await execute(command)
         if(setIp){
-            const conup_command = conupCommand(payload?.con_name)
-            const conup = await execute(conup_command)
-            if(conup){
-                return {
-                    status: 200,
-                    msg: "SUCCESS",
-                    data: { command, conup_command }
-                }
-            }
-            else{
-                return {
-                    status: 500,
-                    msg: "FAILED TO ACTIVATE CONNECTION",
-                    data: conup
-                }
+            return {
+                status: 200,
+                msg: "SUCCESS",
+                data: { command, setIp }
             }
         }
         else{

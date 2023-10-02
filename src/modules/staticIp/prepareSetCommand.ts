@@ -9,7 +9,7 @@ const prepareCommandForSetStaticIp = (payload: staticIp, interfaceName: string) 
     const static_ip = makeIP(payload.static_ip)
     const gateway_ip = makeIP(payload.gateway_ip)
 
-    return `sudo nmcli connection add con-name ${payload?.con_name} ifname ${interfaceName} type ethernet ipv4.method manual ipv4.addresses ${static_ip}/${payload.subnet_mask} ipv4.gateway ${gateway_ip}`
+    return `sudo nmcli connection add con-name ${payload?.con_name} ifname ${interfaceName} type ethernet ipv4.method manual ipv4.addresses ${static_ip}/${payload.subnet_mask} ipv4.gateway ${gateway_ip} ipv4.dns 8.8.8.8`
 }
 
 const conupCommand = (conName: string) =>{

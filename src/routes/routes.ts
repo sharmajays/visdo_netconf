@@ -15,9 +15,9 @@ staticIpRouter.post('/setStaticIp',async(req,res,next)=>{
     }
 })
 
-staticIpRouter.post('/setDhcp',async(req,res,next)=>{
+staticIpRouter.post('/activateCon',async(req,res,next)=>{
     try{
-        const conName: string = req?.body.conName
+        const conName: string = req?.body?.conName
         const result:resp = await dhcpController(conName)
         res.json(result)
     }
