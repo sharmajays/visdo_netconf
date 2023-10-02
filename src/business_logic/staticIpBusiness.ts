@@ -1,15 +1,15 @@
 import { staticIp } from "../models/types"
-import { terminalExec } from "../service/terminalExec"
+import execute from "../service/terminalExec"
 import { prepareCommandForSetStaticIp, conupCommand } from "../modules/staticIp/prepareSetCommand"
 
-const setStaticIpBusiness = (payload: staticIp) => {
+const setStaticIpBusiness = async(payload: staticIp) => {
     try{
         const command = prepareCommandForSetStaticIp(payload, 'end0')
-        const setIp = terminalExec(command)
-        if(setIp?.code == "SUCCESS"){
+        const setIp = await execute(command)
+        if(setIp){
             const conup_command = conupCommand(payload?.con_name)
-            const conup = terminalExec(conup_command)
-            if(conup.code == "SUCCESS"){
+            const conup = await execute(conup_command)
+            if(conup){
                 return {
                     status: 200,
                     msg: "SUCCESS",

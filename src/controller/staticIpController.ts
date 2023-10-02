@@ -1,9 +1,9 @@
 import { staticIp } from "../models/types"
 import { setStaticIpBusiness } from "../business_logic/staticIpBusiness"
 
-const staticIpController = (payload: staticIp) =>{
+const staticIpController = async(payload: staticIp) =>{
     try{
-        return setStaticIpBusiness(payload)
+        return await setStaticIpBusiness(payload)
     }
     catch(err){
         return {

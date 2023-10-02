@@ -1,8 +1,8 @@
 import { dhcpBusiness } from "../business_logic/dhcpBusiness"
 
-const dhcpController = (conName: string) =>{
+const dhcpController = async(conName: string) =>{
     try{
-        return dhcpBusiness(conName)
+        return await dhcpBusiness(conName)
     }
     catch(err){
         return {

@@ -1,21 +1,39 @@
-import { exec, ExecException } from 'child_process';
-import { terminalExecReturns } from "../models/types"
+import childProcess from "child_process"
 
-export const terminalExec = (command: string) =>{
-	let result: terminalExecReturns = { code: "FAILED", value: ""}
-	const abcd = exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
-		if (error) {
-			result = { code: "ERROR", value: {...error} }
-		}
-		else if(stderr) {
-			result = { code: "INVALID", value: stderr}
-		}
-		else{
-			result = { code: "SUCCESS", value: stdout }
-		}
-	});
-	console.log("its abcd: ",abcd)
-	return result
+/**
+ * @param {string} command A shell command to execute
+ * @return {Promise<string>} A promise that resolve to the output of the shell command, or an error
+ * @example const output = await execute("ls -alh");
+ */
+function execute(command: string) {
+  /**
+   * @param {Function} resolve A function that resolves the promise
+   * @param {Function} reject A function that fails the promise
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+   */
+  return new Promise(function(resolve, reject) {
+    /**
+     * @param {Error} error An error triggered during the execution of the childProcess.exec command
+     * @param {string|Buffer} standardOutput The result of the shell command execution
+     * @param {string|Buffer} standardError The error resulting of the shell command execution
+     * @see https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback
+     */
+    childProcess.exec(command, function(error, standardOutput, standardError) {
+      if (error) {
+        reject();
+
+        return;
+      }
+
+      if (standardError) {
+        reject(standardError);
+
+        return;
+      }
+
+      resolve(standardOutput);
+    });
+  });
 }
 
-exports = { terminalExec }
+export default execute

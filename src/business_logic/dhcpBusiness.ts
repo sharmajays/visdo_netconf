@@ -1,11 +1,11 @@
-import { terminalExec } from "../service/terminalExec"
+import execute from "../service/terminalExec"
 import { conupCommand } from "../modules/staticIp/prepareSetCommand"
 
-const dhcpBusiness = (conName: string) => {
+const dhcpBusiness = async(conName: string) => {
     try{
         const conup_command = conupCommand(conName)
-            const conup = terminalExec(conup_command)
-            if(conup.code == "SUCCESS"){
+            const conup = await execute(conup_command)
+            if(conup){
                 return {
                     status: 200,
                     msg: "SUCCESS",
