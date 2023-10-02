@@ -4,7 +4,7 @@ const makeIP = (ip: ipAddress) =>{
     return `${ip.network_id_1}.${ip.network_id_2}.${ip.network_id_3}.${ip.host_id}`
 }
 
-const prepareCommandForSetStaticIp = (payload: staticIp, interfaceName: string) =>{
+const prepareCommandForSetStaticIp = (payload: staticIp, interfaceName: unknown) =>{
 
     const static_ip = makeIP(payload.static_ip)
     const gateway_ip = makeIP(payload.gateway_ip)
@@ -16,5 +16,9 @@ const conupCommand = (conName: string) =>{
     return `nmcli con up ${conName}`
 }
 
-export { prepareCommandForSetStaticIp, conupCommand }
+const interfaceName = `nmcli device show | head -n 1 | awk '{print $2}'`
+
+const fetchConNamesCommand = "nmcli connection show | grep -E '\s+ethernet\s+' | awk '{print $1}'"
+
+export { prepareCommandForSetStaticIp, conupCommand, fetchConNamesCommand, interfaceName }
 

@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { staticIpController } from '../controller/staticIpController'
-import { dhcpController } from '../controller/dhcpController'
+import { activateConController } from '../controller/activateConController'
+import { fetchConNamesController } from '../controller/fetchConNamesController'
 import { staticIp, resp } from '../models/types'
 const staticIpRouter = Router()
 
@@ -18,7 +19,17 @@ staticIpRouter.post('/setStaticIp',async(req,res,next)=>{
 staticIpRouter.post('/activateCon',async(req,res,next)=>{
     try{
         const conName: string = req?.body?.conName
-        const result:resp = await dhcpController(conName)
+        const result:resp = await activateConController(conName)
+        res.json(result)
+    }
+    catch(err){
+        res.json(err)
+    }
+})
+
+staticIpRouter.get('/fetchConNames',async(req,res,next)=>{
+    try{
+        const result:resp = await fetchConNamesController()
         res.json(result)
     }
     catch(err){

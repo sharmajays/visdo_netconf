@@ -1,10 +1,12 @@
 import { staticIp } from "../models/types"
 import execute from "../service/terminalExec"
 import { prepareCommandForSetStaticIp, conupCommand } from "../modules/staticIp/prepareSetCommand"
+import { interfaceName } from "../modules/staticIp/prepareSetCommand"
 
 const setStaticIpBusiness = async(payload: staticIp) => {
     try{
-        const command = prepareCommandForSetStaticIp(payload, 'end0')
+        const interfaceCon = await execute(interfaceName)
+        const command = prepareCommandForSetStaticIp(payload, interfaceCon)
         const setIp = await execute(command)
         if(setIp){
             return {
