@@ -4,8 +4,8 @@ import { fetchConNamesCommand } from "../modules/staticIp/prepareSetCommand"
 const fetchConNamesBusiness = async() => {
     try{
         const conNames = await execute(fetchConNamesCommand)
-        console.log("its con names: ",conNames)
         if(conNames){
+typeof(conNames)=='string' ? conNames.replace('\n', ',') : ''
             return {
                 status: 200,
                 msg: "SUCCESS",

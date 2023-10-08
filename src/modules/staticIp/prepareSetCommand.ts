@@ -16,9 +16,8 @@ const conupCommand = (conName: string) =>{
     return `nmcli con up ${conName}`
 }
 
-const interfaceName = `nmcli device show | head -n 1 | awk '{print $2}'`
+const interfaceName = `nmcli device show | head -n 1 | awk '{print $2}' | tr -d '\n'`
 
-const fetchConNamesCommand = "nmcli connection show | grep -E '\s+ethernet\s+' | awk '{print $1}'"
-
+const fetchConNamesCommand = "nmcli connection show | grep -E '\\s+ethernet\\s+' | awk '{print $1}'"
 export { prepareCommandForSetStaticIp, conupCommand, fetchConNamesCommand, interfaceName }
 

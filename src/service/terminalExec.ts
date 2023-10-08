@@ -20,7 +20,7 @@ function execute(command: string) {
      */
     childProcess.exec(command, function(error, standardOutput: string, standardError: string) {
       if (error) {
-        reject();
+        reject(error);
 
         return;
       }

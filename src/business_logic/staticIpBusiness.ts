@@ -5,9 +5,13 @@ import { interfaceName } from "../modules/staticIp/prepareSetCommand"
 
 const setStaticIpBusiness = async(payload: staticIp) => {
     try{
-        const interfaceCon = await execute(interfaceName)
+                let interfaceCon = await execute(interfaceName)
+typeof(interfaceCon)==="string" ? interfaceCon.replace(/[\r\n]+/gm, ""): ""
+console.log("this is interface: ", interfaceCon)
         const command = prepareCommandForSetStaticIp(payload, interfaceCon)
+console.log("this is command: ", command)
         const setIp = await execute(command)
+console.log("after execution: ", setIp)
         if(setIp){
             return {
                 status: 200,
@@ -24,6 +28,7 @@ const setStaticIpBusiness = async(payload: staticIp) => {
         }    
     }
     catch(err){
+console.log("its errr bro: ", err)
         return {
             status: 500,
             msg: "FAILED IN BUSINESS LOGIC",
