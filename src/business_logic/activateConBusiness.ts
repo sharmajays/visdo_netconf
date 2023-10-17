@@ -7,7 +7,7 @@ const activateConBusiness = async(conName: string) => {
         const conup = await execute(conup_command)
         return {
 	    status: 200,
-            msg: `CONNECTION SUCCESS ${conName}`
+            msg: `CONNECTION SUCCESS ${conName}`,
             data: {}
 	}
     }
