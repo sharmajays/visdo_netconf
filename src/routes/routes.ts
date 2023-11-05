@@ -4,6 +4,7 @@ import { activateConController } from '../controller/activateConController'
 import { fetchConNamesController } from '../controller/fetchConNamesController'
 import { staticIp, resp } from '../models/types'
 const staticIpRouter = Router()
+const dhcpRouter = Router()
 
 staticIpRouter.post('/setStaticIp',async(req,res,next)=>{
     try{
@@ -37,4 +38,14 @@ staticIpRouter.get('/fetchConNames',async(req,res,next)=>{
     }
 })
 
-export { staticIpRouter }
+dhcpRouter.post('/activateDhcp',async(req,res,next)=>{
+    try{
+        const result:resp = await activateConController("VISO_DHCP")
+        res.json(result)
+    }
+    catch(err){
+        res.json(err)
+    }
+})
+
+export { staticIpRouter, dhcpRouter }
